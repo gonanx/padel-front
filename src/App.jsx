@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { HashRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { apiService } from './services/api';
 
@@ -68,9 +68,9 @@ const AnimatedRoutes = () => {
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <AnimatedRoutes />
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
