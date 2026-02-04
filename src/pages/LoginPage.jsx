@@ -25,6 +25,7 @@ const LoginPage = () => {
             await apiService.login({ email, password });
             console.log("Login exitoso");
             navigate('/dashboard');
+            window.location.reload();
         } catch (err) {
             setError(err.message || 'Credenciales incorrectas');
         } finally {
@@ -34,10 +35,12 @@ const LoginPage = () => {
 
     return (
         <div className="auth-container">
+            {/* BOTÓN FLOTANTE PARA VOLVER */}
             <Link to="/" className="back-floating-btn" title="Volver al inicio">
                 ✕
             </Link>
 
+            {/* LADO VISUAL: Fondo dinámico */}
             <div
                 className="auth-visual-side"
                 style={{ backgroundImage: `url(${bgImage})` }}
@@ -48,6 +51,7 @@ const LoginPage = () => {
                 </div>
             </div>
 
+            {/* LADO DEL FORMULARIO */}
             <div className="auth-form-side">
                 <div className="auth-card">
                     <h1 className="auth-title">Iniciar <span>Sesión</span></h1>
