@@ -1,0 +1,12 @@
+/* Evita que aparezca el scroll horizontal durante el deslizamiento */
+body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+}
+
+/* Asegura que el contenedor de la animación ocupe el espacio correcto */
+.motion-wrapper {
+    width: 100%;
+    min-height: 100vh;
+}

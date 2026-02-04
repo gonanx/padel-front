@@ -1,0 +1,281 @@
+/* --- src/styles/Auth.css --- */
+
+/* RESET Y BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* CONTENEDOR PRINCIPAL: Split Screen */
+.auth-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  background: #0a0a0a;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  overflow: hidden;
+}
+
+/* --- LADO VISUAL (Imagen Dinámica) --- */
+.auth-visual-side {
+  flex: 1.2;
+  position: relative;
+  /* La imagen se inyecta desde el JSX usando style={{ backgroundImage: ... }} */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 4rem;
+  animation: fadeIn 1.2s ease-out;
+}
+
+/* Overlay para asegurar legibilidad del texto sobre cualquier imagen */
+.auth-visual-side::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(10, 10, 10, 0.1) 0%,
+      rgba(10, 10, 10, 0.4) 50%,
+      rgba(26, 46, 24, 0.9) 100%);
+  z-index: 1;
+}
+
+.auth-visual-content {
+  max-width: 500px;
+  color: white;
+  z-index: 2;
+  /* Por encima del overlay */
+}
+
+.auth-visual-content h2 {
+  font-size: 3.2rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.auth-visual-content .highlight {
+  color: #8ce600;
+  text-shadow: 0 0 20px rgba(140, 230, 0, 0.5);
+}
+
+/* --- LADO DEL FORMULARIO --- */
+.auth-form-side {
+  flex: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #1a2e18 0%, #0a0a0a 100%);
+  padding: 3rem;
+  position: relative;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  animation: slideLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* TÍTULOS */
+.auth-title {
+  color: #ffffff;
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  letter-spacing: -1px;
+}
+
+.auth-title span {
+  color: #8ce600;
+}
+
+.auth-subtitle {
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 2.5rem;
+  font-size: 1rem;
+}
+
+/* FORMULARIO E INPUTS */
+.form-group {
+  margin-bottom: 1.6rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #8ce600;
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 1.1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  font-size: 1rem;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #8ce600;
+  box-shadow: 0 0 20px rgba(140, 230, 0, 0.15);
+}
+
+/* BOTÓN PRINCIPAL */
+.auth-button {
+  width: 100%;
+  background: #8ce600;
+  color: #000;
+  padding: 1.1rem;
+  border: none;
+  border-radius: 14px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  margin-top: 1rem;
+  text-transform: uppercase;
+}
+
+.auth-button:hover {
+  background: #a3ff00;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(140, 230, 0, 0.3);
+}
+
+.auth-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
+
+/* FOOTER */
+.auth-footer {
+  text-align: center;
+  margin-top: 2.5rem;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.auth-link {
+  color: #8ce600;
+  text-decoration: none;
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+.auth-link:hover {
+  filter: brightness(1.2);
+  text-decoration: underline;
+}
+
+/* --- BOTÓN FLOTANTE --- */
+/* --- BOTÓN FLOTANTE CORREGIDO --- */
+.back-floating-btn {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 100;
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 50%;
+
+  /* Centrado absoluto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  /* Un poco más pequeña suele ayudar al centrado visual */
+  font-family: Arial, sans-serif;
+  /* Una fuente más simétrica para la X */
+  line-height: 0;
+  /* Evita que el interlineado empuje la X hacia abajo */
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.back-floating-btn:hover {
+  background: #8ce600;
+  color: #000;
+  transform: rotate(90deg) scale(1.1);
+  border-color: #8ce600;
+  box-shadow: 0 0 25px rgba(140, 230, 0, 0.5);
+
+  /* Aseguramos que el contenido no se desplace al escalar */
+  padding-bottom: 2px;
+  /* Ajuste óptico fino por si la fuente tiene base pesada */
+}
+
+/* --- MENSAJES DE ERROR --- */
+.error-message {
+  background: rgba(255, 77, 77, 0.1);
+  border-left: 4px solid #ff4d4d;
+  color: #ff4d4d;
+  padding: 0.8rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* RESPONSIVO */
+@media (max-width: 1024px) {
+  .auth-visual-side {
+    flex: 1;
+    /* Equilibramos en tablets */
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .auth-visual-side {
+    display: none;
+    /* Ocultar imagen en móvil para priorizar el formulario */
+  }
+
+  .auth-form-side {
+    flex: 1;
+    padding: 2rem;
+  }
+}
