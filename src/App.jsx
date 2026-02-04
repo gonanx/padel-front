@@ -45,16 +45,14 @@ const AnimatedRoutes = () => {
         <Route path="/login" element={<PageTransition><LoginPage /></PageTransition>} />
         <Route path="/mis-reservas" element={<PageTransition><MisReservasPage /></PageTransition>} />
 
-        {/* Ruta para cualquier usuario logueado */}
         <Route path="/dashboard" element={<PageTransition><DashboardPage /></PageTransition>} />
 
-        {/* Ruta SOLO para administradores */}
         <Route
           path="/admin"
           element={
             <AdminRoute user={currentUser}>
               <PageTransition>
-                <div>¡Bienvenido al Panel de Admin!</div> {/* Sustituye por tu <AdminPanel /> */}
+                <div>¡Bienvenido al Panel de Admin!</div>
               </PageTransition>
             </AdminRoute>
           }
@@ -68,7 +66,7 @@ const AnimatedRoutes = () => {
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/padel-front">
       <AnimatedRoutes />
     </BrowserRouter>
   );
