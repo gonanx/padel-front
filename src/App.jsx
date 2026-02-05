@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { apiService } from './services/api';
 
@@ -44,9 +44,7 @@ const AnimatedRoutes = () => {
         <Route path="/registro" element={<PageTransition><RegisterPage /></PageTransition>} />
         <Route path="/login" element={<PageTransition><LoginPage /></PageTransition>} />
         <Route path="/mis-reservas" element={<PageTransition><MisReservasPage /></PageTransition>} />
-
         <Route path="/dashboard" element={<PageTransition><DashboardPage /></PageTransition>} />
-
         <Route
           path="/admin"
           element={
@@ -57,7 +55,6 @@ const AnimatedRoutes = () => {
             </AdminRoute>
           }
         />
-
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </AnimatePresence>
@@ -66,9 +63,9 @@ const AnimatedRoutes = () => {
 
 function App() {
   return (
-    <BrowserRouter basename="/padel-front">
+    <HashRouter>
       <AnimatedRoutes />
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
