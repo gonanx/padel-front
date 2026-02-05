@@ -5,10 +5,6 @@ async function fetchConfig(endpoint, method = 'GET', body = null) {
     const publicEndpoints = ['/login', '/register'];
     const isPublic = publicEndpoints.includes(endpoint);
 
-    if (!isPublic && !token) {
-        return { error: "No autenticado", pistas: [], horarios: [] };
-    }
-
     const headers = {
         'Content-Type': 'application/json',
     };
@@ -20,6 +16,7 @@ async function fetchConfig(endpoint, method = 'GET', body = null) {
     const config = {
         method,
         headers,
+        mode: 'cors'
     };
 
     if (body) {
@@ -29,11 +26,6 @@ async function fetchConfig(endpoint, method = 'GET', body = null) {
     try {
         const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
 
-        if (response.status === 401 && !isPublic) {
-            localStorage.removeItem('token');
-            throw new Error("Sesión expirada. Por favor, inicia sesión de nuevo.");
-        }
-
         const contentType = response.headers.get("content-type");
         let data = {};
 
@@ -42,14 +34,18 @@ async function fetchConfig(endpoint, method = 'GET', body = null) {
         }
 
         if (!response.ok) {
-            throw new Error(data.error || `Error ${response.status}: ${response.statusText}`);
+            if (response.status === 401 && !isPublic) {
+                localStorage.removeItem('token');
+                window.location.hash = '/login';
+            }
+            throw new Error(data.error || `Error ${response.status}`);
         }
 
         return data;
 
     } catch (error) {
-        if (error.message === 'Failed to fetch') {
-            throw new Error("Error de conexión: El servidor Flask no responde.");
+        if (error.name === 'TypeError' || error.message.includes('Failed to fetch')) {
+            throw new Error("No se pudo conectar con el servidor. Revisa tu conexión o el estado de la API.");
         }
         throw error;
     }
@@ -63,43 +59,32 @@ export const apiService = {
         }
         return data;
     },
-
     register: (userData) => fetchConfig('/register', 'POST', userData),
-
     logout: () => {
         localStorage.removeItem('token');
+        window.location.hash = '/login';
     },
-
     getMe: () => fetchConfig('/me'),
-
     getPistas: () => fetchConfig('/pistas'),
-
     getHorarios: () => fetchConfig('/horarios'),
-
     getDisponibilidadPista: (pistaId, fecha) =>
         fetchConfig('/disponibilidadpista', 'POST', { pista_id: pistaId, fecha }),
-
     getDisponibilidadTodas: (fecha) =>
         fetchConfig('/disponibilidad', 'POST', { fecha }),
-
     calcularPrecio: (pistaId, fecha, horarioIds) =>
         fetchConfig('/calcular_precio', 'POST', {
             pista_id: pistaId,
             fecha,
             horario_ids: horarioIds
         }),
-
     reservar: (pistaId, fecha, horarioIds) =>
         fetchConfig('/reservar', 'POST', {
             pista_id: pistaId,
             fecha,
             horario_ids: horarioIds
         }),
-
     getMisReservas: () => fetchConfig('/mis_reservas'),
-
     cancelarReserva: (reservaId) =>
         fetchConfig('/cancelar_reserva', 'POST', { reserva_id: reservaId }),
-
     getTodasLasReservas: () => fetchConfig('/admin/todas_reservas'),
 };
