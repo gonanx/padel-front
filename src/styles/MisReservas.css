@@ -7,7 +7,6 @@
     padding-bottom: 3rem;
 }
 
-/* --- Unificated Header --- */
 .main-app-header {
     background: rgba(10, 10, 10, 0.9);
     backdrop-filter: blur(10px);
@@ -26,15 +25,8 @@
     color: #fff;
     font-size: 1.5rem;
     font-weight: 300;
-    letter-spacing: 1px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    transition: 0.3s;
-}
-
-.header-logo:hover {
-    opacity: 0.8;
 }
 
 .header-logo span {
@@ -44,17 +36,13 @@
 
 .header-logo .separator {
     color: rgba(255, 255, 255, 0.2);
-    margin: 0 5px;
+    margin: 0 10px;
 }
 
 .header-logo .user-name {
     font-size: 1.1rem;
     font-weight: 400;
-}
-
-.header-nav {
-    display: flex;
-    align-items: center;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .logout-button-circle {
@@ -65,7 +53,6 @@
     height: 40px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 1.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -73,12 +60,11 @@
 }
 
 .logout-button-circle:hover {
-    background: #8ce600;
+    background: #ff4d4d;
+    border-color: #ff4d4d;
     transform: rotate(90deg);
-    border-color: #8ce600;
 }
 
-/* --- Container & Titles --- */
 .reservas-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -96,7 +82,6 @@
     font-weight: 800;
 }
 
-/* --- Grid & Cards --- */
 .reservas-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -124,13 +109,8 @@
 .reserva-header-card {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 1rem;
-}
-
-.reserva-header-card h3 {
-    margin: 0;
-    font-size: 1.3rem;
 }
 
 .reserva-status-tag {
@@ -140,16 +120,12 @@
     padding: 4px 10px;
     border-radius: 20px;
     text-transform: uppercase;
-    border: 1px solid rgba(140, 230, 0, 0.2);
 }
 
 .reserva-date {
     color: #8ce600;
     font-weight: 700;
-    margin-bottom: 1.2rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    margin-bottom: 1rem;
 }
 
 .reserva-horarios {
@@ -157,7 +133,6 @@
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-bottom: 1.5rem;
-    min-height: 40px;
 }
 
 .tag-horario {
@@ -165,28 +140,14 @@
     padding: 0.4rem 0.8rem;
     border-radius: 8px;
     font-size: 0.85rem;
-    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* --- Footer & Actions --- */
 .reserva-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-top: 1.2rem;
-}
-
-.total-wrapper {
-    display: flex;
-    flex-direction: column;
-}
-
-.total-label {
-    font: 0.7rem sans-serif;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.4);
-    letter-spacing: 1px;
 }
 
 .reserva-total {
@@ -201,109 +162,44 @@
     padding: 0.6rem 1.2rem;
     border-radius: 10px;
     cursor: pointer;
-    font: 700 0.8rem sans-serif;
+    font-weight: 700;
     transition: 0.3s;
-    text-transform: uppercase;
 }
 
 .cancel-btn:hover {
     background: #ff4d4d;
     color: #fff;
-    border-color: #ff4d4d;
-    box-shadow: 0 0 15px rgba(255, 77, 77, 0.3);
 }
 
-/* --- Empty State --- */
 .no-reservas {
+    grid-column: 1 / -1;
     text-align: center;
-    padding: 6rem 1rem;
+    padding: 4rem 2rem;
     background: rgba(255, 255, 255, 0.02);
     border-radius: 30px;
     border: 1px dashed rgba(255, 255, 255, 0.1);
 }
 
-.empty-icon {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    opacity: 0.5;
-}
-
-.no-reservas p {
-    color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
-}
-
 .btn-primary-reservas {
+    display: inline-block;
     background: #8ce600;
     color: #000;
-    border: none;
     padding: 1rem 2rem;
     border-radius: 14px;
-    font: 800 1rem sans-serif;
-    cursor: pointer;
-    transition: 0.3s;
-    text-transform: uppercase;
+    font-weight: 800;
+    text-decoration: none;
+    margin-top: 1rem;
 }
 
-.btn-primary-reservas:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(140, 230, 0, 0.3);
-    background: #a3ff00;
-}
-
+/* SweetAlert Customization */
 .swal2-popup-custom {
-    background: rgba(20, 20, 20, 0.95) !important;
-    backdrop-filter: blur(15px) !important;
-    border: 1px solid rgba(140, 230, 0, 0.4) !important;
+    background: #111 !important;
+    border: 1px solid #8ce600 !important;
+    color: #fff !important;
     border-radius: 20px !important;
-    color: #ffffff !important;
-    /* Forzamos la fuente de tu app */
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
-}
-
-.swal2-title-custom {
-    color: #8ce600 !important;
-    font-weight: 800 !important;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-family: 'Segoe UI', Roboto, sans-serif !important;
-}
-
-.swal2-html-container {
-    font-family: 'Segoe UI', Roboto, sans-serif !important;
-    color: rgba(255, 255, 255, 0.8) !important;
 }
 
 .swal2-confirm-custom {
     background: #8ce600 !important;
     color: #000 !important;
-    font-weight: 800 !important;
-    border-radius: 12px !important;
-    text-transform: uppercase;
-    font-family: 'Segoe UI', Roboto, sans-serif !important;
-    padding: 12px 30px !important;
-}
-
-.swal2-cancel-custom {
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: #fff !important;
-    border-radius: 12px !important;
-    text-transform: uppercase;
-    font-family: 'Segoe UI', Roboto, sans-serif !important;
-    padding: 12px 30px !important;
-}
-
-/* Estilo para los iconos de SweetAlert para que no desentonen */
-.swal2-icon.swal2-success {
-    border-color: #8ce600 !important;
-    color: #8ce600 !important;
-}
-
-.swal2-icon.swal2-success [class^='swal2-success-line'] {
-    background-color: #8ce600 !important;
-}
-
-.swal2-icon.swal2-success .swal2-success-ring {
-    border: 4px solid rgba(140, 230, 0, 0.3) !important;
 }
