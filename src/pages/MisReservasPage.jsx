@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { apiService } from '../services/api';
-import '../styles/Dashboard.css';
+import '../styles/MisReservas.css';
 
 const MisReservasPage = () => {
     const [reservas, setReservas] = useState([]);
