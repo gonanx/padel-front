@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { apiService } from '../services/api';
-import { getRandomBackground } from '../utils/backgrounds'; // Lógica centralizada
+import { getRandomBackground } from '../utils/backgrounds';
 import '../styles/AuthForm.css';
 
 const RegisterPage = () => {
@@ -13,10 +13,10 @@ const RegisterPage = () => {
         password: '',
         confirmPassword: ''
     });
+
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
-    // Seleccionamos un fondo aleatorio específico para registro al cargar
     useEffect(() => {
         const randomImg = getRandomBackground('register');
         setBgImage(randomImg);
@@ -55,12 +55,7 @@ const RegisterPage = () => {
 
     return (
         <div className="auth-container">
-            {/* BOTÓN FLOTANTE PARA VOLVER A LANDING */}
-            <Link to="/" className="back-floating-btn" title="Volver al inicio">
-                ✕
-            </Link>
-
-            {/* LADO VISUAL: Fondo dinámico desde utils */}
+            <Link to="/" className="back-floating-btn" title="Volver al inicio">✕</Link>
             <div
                 className="auth-visual-side"
                 style={{ backgroundImage: `url(${bgImage})` }}
@@ -71,7 +66,6 @@ const RegisterPage = () => {
                 </div>
             </div>
 
-            {/* LADO DEL FORMULARIO */}
             <div className="auth-form-side">
                 <div className="auth-card">
                     <h1 className="auth-title">Crear <span>Cuenta</span></h1>
