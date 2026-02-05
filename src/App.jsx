@@ -23,25 +23,17 @@ const AnimatedRoutes = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const checkUser = async () => {
+  useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      try {
-        const data = await apiService.getMe();
-        setCurrentUser(data);
-      } catch (err) {
-        apiService.logout();
-        setCurrentUser(null);
-      }
+      apiService.getMe()
+        .then(data => setCurrentUser(data))
+        .catch(() => localStorage.removeItem('token'))
+        .finally(() => setLoading(false));
     } else {
-      setCurrentUser(null);
+      setLoading(false);
     }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    checkUser();
-  }, [location.pathname]);
+  }, []);
 
   if (loading) return null;
 
