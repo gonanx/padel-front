@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 import { apiService } from '../services/api';
 import '../styles/Admin.css';
 
+
 const AdminPage = () => {
     const [usuarios, setUsuarios] = useState([]);
     const [busqueda, setBusqueda] = useState('');
     const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
         // Asumiendo que crearás apiService.getUsuarios()
@@ -17,12 +19,15 @@ const AdminPage = () => {
             .catch(err => console.error("Error cargando usuarios:", err));
     }, []);
 
+
     const usuariosFiltrados = usuarios.filter(u =>
         u.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
         u.email.toLowerCase().includes(busqueda.toLowerCase())
     );
 
+
     if (loading) return <div className="loading">Accediendo al panel de control...</div>;
+
 
     return (
         <div className="admin-container">
@@ -33,6 +38,7 @@ const AdminPage = () => {
                     <li onClick={() => window.location.href = '/dashboard'}>⬅️ Volver</li>
                 </ul>
             </div>
+
 
             <main className="admin-content">
                 <header className="admin-main-header">
@@ -45,6 +51,7 @@ const AdminPage = () => {
                         className="admin-search"
                     />
                 </header>
+
 
                 <div className="table-container">
                     <table className="admin-table">
@@ -83,5 +90,6 @@ const AdminPage = () => {
         </div>
     );
 };
+
 
 export default AdminPage;

@@ -4,6 +4,7 @@ import { apiService } from '../services/api';
 import Swal from 'sweetalert2';
 import '../styles/Dashboard.css';
 
+
 const formatUserName = (name) => {
     if (!name) return "";
     return name
@@ -13,6 +14,7 @@ const formatUserName = (name) => {
         .join(' ');
 };
 
+
 const PistaCard = ({ pista, isSelected, onSelect }) => {
     const [currentImg, setCurrentImg] = useState(0);
     const fotos = (pista.fotos && pista.fotos.length > 0) ? pista.fotos : [
@@ -21,15 +23,18 @@ const PistaCard = ({ pista, isSelected, onSelect }) => {
         'https://images.unsplash.com/photo-1554062614-69021c38cc9b?q=80&w=500'
     ];
 
+
     const nextImg = (e) => {
         e.stopPropagation();
         setCurrentImg((prev) => (prev + 1) % fotos.length);
     };
 
+
     const prevImg = (e) => {
         e.stopPropagation();
         setCurrentImg((prev) => (prev - 1 + fotos.length) % fotos.length);
     };
+
 
     return (
         <div className={`pista-premium-card ${isSelected ? 'active' : ''}`} onClick={() => onSelect(pista)}>
@@ -55,6 +60,7 @@ const PistaCard = ({ pista, isSelected, onSelect }) => {
     );
 };
 
+
 const Dashboard = () => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -65,11 +71,14 @@ const Dashboard = () => {
     const [seleccionados, setSeleccionados] = useState([]);
     const [resumenPrecio, setResumenPrecio] = useState(null);
 
+
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
 
+
     useEffect(() => {
         if (!token) { setLoading(false); return; }
+
 
         Promise.all([apiService.getMe(), apiService.getPistas()])
             .then(([userData, pistasData]) => {
@@ -83,6 +92,7 @@ const Dashboard = () => {
             });
     }, [token, navigate]);
 
+
     useEffect(() => {
         if (pistaSeleccionada && fecha) {
             setSeleccionados([]);
@@ -94,6 +104,7 @@ const Dashboard = () => {
         }
     }, [pistaSeleccionada, fecha]);
 
+
     useEffect(() => {
         if (seleccionados.length > 0 && pistaSeleccionada) {
             apiService.calcularPrecio(pistaSeleccionada.id, fecha, seleccionados)
@@ -104,8 +115,10 @@ const Dashboard = () => {
         }
     }, [seleccionados, pistaSeleccionada, fecha]);
 
+
     const handleConfirmarReserva = async () => {
         if (seleccionados.length === 0) return;
+
 
         Swal.fire({
             title: 'Procesando...',
@@ -114,8 +127,10 @@ const Dashboard = () => {
             didOpen: () => { Swal.showLoading(); }
         });
 
+
         try {
             await apiService.reservar(pistaSeleccionada.id, fecha, seleccionados);
+
 
             Swal.fire({
                 icon: 'success',
@@ -143,6 +158,7 @@ const Dashboard = () => {
                 }
             });
 
+
         } catch (err) {
             Swal.fire({
                 icon: 'error',
@@ -152,13 +168,16 @@ const Dashboard = () => {
         }
     };
 
+
     const handleLogout = () => {
         apiService.logout();
         navigate('/');
     };
 
+
     if (!token) return <Navigate to="/landing" replace />;
     if (loading) return <div className="loading">CONECTANDO AL SISTEMA...</div>;
+
 
     return (
         <div className="dashboard-container">
@@ -175,6 +194,7 @@ const Dashboard = () => {
                 </div>
             </header>
 
+
             <main className="booking-main">
                 <div className="booking-content">
                     <section className="booking-section">
@@ -190,6 +210,7 @@ const Dashboard = () => {
                             ))}
                         </div>
 
+
                         <label className="section-title">2. Fecha y Horarios</label>
                         <div className="controls-flex">
                             <input
@@ -200,6 +221,7 @@ const Dashboard = () => {
                                 className="date-input-premium"
                             />
                         </div>
+
 
                         {!pistaSeleccionada ? (
                             <div className="empty-horarios">Selecciona una pista para ver la disponibilidad</div>
@@ -220,6 +242,7 @@ const Dashboard = () => {
                         )}
                     </section>
                 </div>
+
 
                 <aside className={`summary-container ${resumenPrecio ? 'active' : ''}`}>
                     <div className="summary-card">
@@ -251,5 +274,6 @@ const Dashboard = () => {
         </div>
     );
 };
+
 
 export default Dashboard;

@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { apiService } from '../services/api';
-import { getRandomBackground } from '../utils/backgrounds';
+import { getRandomBackground } from '../utils/backgrounds'; // Lógica centralizada
 import '../styles/AuthForm.css';
+
 
 const RegisterPage = () => {
     const navigate = useNavigate();
@@ -13,14 +14,16 @@ const RegisterPage = () => {
         password: '',
         confirmPassword: ''
     });
-
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
+
+    // Seleccionamos un fondo aleatorio específico para registro al cargar
     useEffect(() => {
         const randomImg = getRandomBackground('register');
         setBgImage(randomImg);
     }, []);
+
 
     const handleChange = (e) => {
         setFormData({
@@ -29,14 +32,17 @@ const RegisterPage = () => {
         });
     };
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+
 
         if (formData.password !== formData.confirmPassword) {
             setError("¡Las contraseñas no coinciden!");
             return;
         }
+
 
         setLoading(true);
         try {
@@ -53,9 +59,16 @@ const RegisterPage = () => {
         }
     };
 
+
     return (
         <div className="auth-container">
-            <Link to="/" className="back-floating-btn" title="Volver al inicio">✕</Link>
+            {/* BOTÓN FLOTANTE PARA VOLVER A LANDING */}
+            <Link to="/" className="back-floating-btn" title="Volver al inicio">
+                ✕
+            </Link>
+
+
+            {/* LADO VISUAL: Fondo dinámico desde utils */}
             <div
                 className="auth-visual-side"
                 style={{ backgroundImage: `url(${bgImage})` }}
@@ -66,12 +79,16 @@ const RegisterPage = () => {
                 </div>
             </div>
 
+
+            {/* LADO DEL FORMULARIO */}
             <div className="auth-form-side">
                 <div className="auth-card">
                     <h1 className="auth-title">Crear <span>Cuenta</span></h1>
                     <p className="auth-subtitle">Solo te llevará un minuto empezar a jugar.</p>
 
+
                     {error && <div className="error-message">{error}</div>}
+
 
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">
@@ -86,6 +103,7 @@ const RegisterPage = () => {
                             />
                         </div>
 
+
                         <div className="form-group">
                             <label>Email</label>
                             <input
@@ -97,6 +115,7 @@ const RegisterPage = () => {
                                 required
                             />
                         </div>
+
 
                         <div className="form-group">
                             <label>Contraseña</label>
@@ -110,6 +129,7 @@ const RegisterPage = () => {
                             />
                         </div>
 
+
                         <div className="form-group">
                             <label>Confirmar Contraseña</label>
                             <input
@@ -122,10 +142,12 @@ const RegisterPage = () => {
                             />
                         </div>
 
+
                         <button type="submit" className="auth-button" disabled={loading}>
                             {loading ? 'CREANDO CUENTA...' : 'REGISTRARME AHORA'}
                         </button>
                     </form>
+
 
                     <p className="auth-footer">
                         ¿Ya tienes cuenta? <Link to="/login" className="auth-link">Inicia sesión</Link>
@@ -135,5 +157,6 @@ const RegisterPage = () => {
         </div>
     );
 };
+
 
 export default RegisterPage;

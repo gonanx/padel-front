@@ -4,6 +4,7 @@ import { apiService } from '../services/api';
 import Swal from 'sweetalert2';
 import '../styles/MisReservas.css';
 
+
 const formatUserName = (name) => {
     if (!name) return "";
     return name
@@ -13,11 +14,13 @@ const formatUserName = (name) => {
         .join(' ');
 };
 
+
 const MisReservas = () => {
     const [reservas, setReservas] = useState([]);
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+
 
     const cargarDatos = async () => {
         try {
@@ -46,9 +49,11 @@ const MisReservas = () => {
         }
     };
 
+
     useEffect(() => {
         cargarDatos();
     }, []);
+
 
     const handleCancelar = (reservaId) => {
         Swal.fire({
@@ -103,12 +108,15 @@ const MisReservas = () => {
         });
     };
 
+
     const handleLogout = () => {
         apiService.logout();
         navigate('/');
     };
 
+
     if (loading) return <div className="loading">Cargando tus reservas...</div>;
+
 
     return (
         <div className="reservas-page">
@@ -121,8 +129,10 @@ const MisReservas = () => {
                 </div>
             </header>
 
+
             <div className="reservas-container">
                 <h2 className="page-title">Tu historial de <span>Reservas</span></h2>
+
 
                 {reservas.length === 0 ? (
                     <div className="no-reservas">
@@ -168,5 +178,3 @@ const MisReservas = () => {
         </div>
     );
 };
-
-export default MisReservas;

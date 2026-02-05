@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { HashRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { apiService } from './services/api';
+
 
 import LandingPage from './pages/LandingPage';
 import RegisterPage from './pages/RegisterPage';
@@ -9,6 +10,7 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import MisReservasPage from './pages/MisReservasPage';
 import PageTransition from './components/PageTransitions';
+
 
 const AdminRoute = ({ children, user }) => {
   const token = localStorage.getItem('token');
@@ -18,10 +20,12 @@ const AdminRoute = ({ children, user }) => {
   return children;
 };
 
+
 const AnimatedRoutes = () => {
   const location = useLocation();
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -35,7 +39,9 @@ const AnimatedRoutes = () => {
     }
   }, []);
 
+
   if (loading) return null;
+
 
   return (
     <AnimatePresence mode="wait">
@@ -44,7 +50,11 @@ const AnimatedRoutes = () => {
         <Route path="/registro" element={<PageTransition><RegisterPage /></PageTransition>} />
         <Route path="/login" element={<PageTransition><LoginPage /></PageTransition>} />
         <Route path="/mis-reservas" element={<PageTransition><MisReservasPage /></PageTransition>} />
+
+
         <Route path="/dashboard" element={<PageTransition><DashboardPage /></PageTransition>} />
+
+
         <Route
           path="/admin"
           element={
@@ -55,18 +65,22 @@ const AnimatedRoutes = () => {
             </AdminRoute>
           }
         />
+
+
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </AnimatePresence>
   );
 };
 
+
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter basename="/padel-front">
       <AnimatedRoutes />
-    </HashRouter>
+    </BrowserRouter>
   );
 }
+
 
 export default App;

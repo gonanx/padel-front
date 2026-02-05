@@ -4,6 +4,7 @@ import { apiService } from '../services/api';
 import { getRandomBackground } from '../utils/backgrounds';
 import '../styles/AuthForm.css';
 
+
 const LoginPage = () => {
     const [bgImage, setBgImage] = useState('');
     const [email, setEmail] = useState('');
@@ -12,10 +13,12 @@ const LoginPage = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
+
     useEffect(() => {
         const randomImg = getRandomBackground('login');
         setBgImage(randomImg);
     }, []);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,7 +26,9 @@ const LoginPage = () => {
         setLoading(true);
         try {
             await apiService.login({ email, password });
+            console.log("Login exitoso");
             navigate('/dashboard');
+            window.location.reload();
         } catch (err) {
             setError(err.message || 'Credenciales incorrectas');
         } finally {
@@ -31,9 +36,16 @@ const LoginPage = () => {
         }
     };
 
+
     return (
         <div className="auth-container">
-            <Link to="/" className="back-floating-btn" title="Volver al inicio">✕</Link>
+            {/* BOTÓN FLOTANTE PARA VOLVER */}
+            <Link to="/" className="back-floating-btn" title="Volver al inicio">
+                ✕
+            </Link>
+
+
+            {/* LADO VISUAL: Fondo dinámico */}
             <div
                 className="auth-visual-side"
                 style={{ backgroundImage: `url(${bgImage})` }}
@@ -44,12 +56,16 @@ const LoginPage = () => {
                 </div>
             </div>
 
+
+            {/* LADO DEL FORMULARIO */}
             <div className="auth-form-side">
                 <div className="auth-card">
                     <h1 className="auth-title">Iniciar <span>Sesión</span></h1>
                     <p className="auth-subtitle">¡Qué bueno verte de nuevo!</p>
 
+
                     {error && <div className="error-message">{error}</div>}
+
 
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">
@@ -77,6 +93,7 @@ const LoginPage = () => {
                         </button>
                     </form>
 
+
                     <p className="auth-footer">
                         ¿Aún no juegas? <Link to="/registro" className="auth-link">Regístrate gratis</Link>
                     </p>
@@ -85,5 +102,6 @@ const LoginPage = () => {
         </div>
     );
 };
+
 
 export default LoginPage;

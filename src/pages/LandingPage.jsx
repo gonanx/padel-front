@@ -3,13 +3,16 @@ import { Link } from 'react-router-dom';
 import { getRandomBackground } from '../utils/backgrounds';
 import '../styles/Landing.css';
 
+
 const Landing = () => {
     const [bgImage, setBgImage] = useState('');
+
 
     useEffect(() => {
         const randomImg = getRandomBackground('landing');
         setBgImage(randomImg);
     }, []);
+
 
     return (
         <div className="landing-container">
@@ -18,6 +21,7 @@ const Landing = () => {
                     PADEL<span>APP</span>
                 </div>
             </nav>
+
 
             <section className="hero">
                 <div className="hero-content">
@@ -30,14 +34,16 @@ const Landing = () => {
                         Únete a la comunidad más grande de jugadores.
                     </p>
 
+
                     <div className="hero-actions">
-                        <Link to="/registro" className="btn-hero" style={{textDecoration: 'none'}}>
+                        <Link to="/registro" className="btn-hero" style={{ textDecoration: 'none' }}>
                             Crear cuenta
                         </Link>
-                        <Link to="/login" className="btn-outline" style={{textDecoration: 'none'}}>
+                        <Link to="/login" className="btn-outline" style={{ textDecoration: 'none' }}>
                             Iniciar sesión
                         </Link>
                     </div>
+
 
                     <div className="micro-features">
                         <div className="micro-item"><span>✓</span> Sin comisiones</div>
@@ -45,6 +51,7 @@ const Landing = () => {
                         <div className="micro-item"><span>✓</span> +20 Pistas</div>
                     </div>
                 </div>
+
 
                 <div className="hero-visual">
                     <div
@@ -61,5 +68,6 @@ const Landing = () => {
         </div>
     );
 };
+
 
 export default Landing;
